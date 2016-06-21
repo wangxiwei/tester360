@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+{% load movielist_filter %}
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>美剧排行榜前十名 | 2014年美剧推荐 | 最新美剧更新 - 看美剧</title>
+    <meta name="keywords" content="美剧排行榜,最热美剧,最新美剧,美剧下载,2014年好看的美剧，看美剧"/>
+    <meta name="description"
+          content="看美剧（kanmeijv.com）第一时间为您提供最火最新的高清美剧片源下载。看美剧是一个非盈利性美剧爱好者组织，我们的宗旨是：分享快乐，打造国内最顶级的BT美剧片源分享平台"/>
+    <meta name="baidu-site-verification" content="Wpf5xRipr3"/>
+    <meta name="baidu_union_verify" content="974b1662cf5c561b8ea686d1400145d4">
+    <meta name="360-site-verification" content="3ce114710089a4444104599edfd5f270"/>
+    <meta name="360_union_verify" content="9bc7b2aee6b722351e0b9d8b1a8806d1">
+    <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?262ecfe8fe986225cd4b5987081fe1e7";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("a").click(function(){
+        $.post("movielist/save_url/",
+        {movieName : $(this).text(),
+        movieUrl : $(this).attr("href"),
+        currentUrl : location.href,
+        });
+        });
+    });
+    </script>
+    <!-- 请置于所有广告位代码之前 -->
+    <script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'movielist/style.css' %}"/>
+{% if movie_list %}
+<div id="wrapper">
+    <div id="midder">
+        <div class="content">
+            <div class="contentbox">
+                <table class="seedtable" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="#cccccc"
+                       width="100%">
+                    <tr bgcolor="#f1f1f1">
+                        <td height="28" colspan="7" align="left"><h3>本站资源汇总表（使用Ctrl+F 进行页面搜索）</h3></td>
+                    </tr>
+                    <tr bgcolor="#ffffff" align="center">
+                        <td height="28" colspan="7" align="left">
+                            <div class="bdsharebuttonbox">
+                                <span class="bds_more">分享到：</span>
+                                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                                <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+                            </div>
+                            <script>
+                                window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","sqq","copy"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","sqq","copy"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                            </script>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#fafafa" align="center">
+                        <td width="5%" align="center">序号</td>
+                        <td align="left">名字</td>
+                        <td width="10%">状态</td>
+                        <td width="10%">更新日期</td>
+                        <td width="10%">回归时间</td>
+                        <td width="10%">倒计时</td>
+                    </tr>
+                    {% for movie in movie_list %}
+                    <tr bgcolor="#ffffff" align="center">
+                        <td>{{ movie.id }}</td>
+                        <td align="left"><a href="{{ movie.movie_url }}" target="_blank" >{{movie.movie_name}}</a></td>
+                        <td>{{ movie.movie_state }}</td>
+                        <td bgcolor="#ffffff" align="left">{{ movie.movie_update }}</td>
+                        <td>{{movie.movie_return}}</td>
+                        <td>{{ movie.movie_countdown }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<p>No movies</p>
+{% endif %}
